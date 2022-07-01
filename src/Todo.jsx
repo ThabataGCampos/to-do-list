@@ -68,8 +68,7 @@ const addNewTodo = (e) => {
     <div>
       <h1>Todo List </h1> 
       <form className="form" onSubmit={handleSubmit}>
-          <label>Add Todo</label>
-          <input onChange={(e) => setNewTask(e.target.value)} type="text" value={newTask} />
+          <input onChange={(e) => setNewTask(e.target.value)} type="text" value={newTask} placeholder="Add Todo"/>
           <button onClick={addNewTodo} type="submit">Submit</button>
       </form>
                                       
