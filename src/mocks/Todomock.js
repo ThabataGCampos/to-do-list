@@ -1,17 +1,17 @@
 export const GetAllTodos = [
     {
-      // id: 1,
+      id: 1,
       text: "melancia",
-      // completed: false,
+      completed: false,
     },
     {
-      // id: 2,
+      id: 2,
       text: "pera",
-      // completed: false,
+      completed: false,
     },
     {
-      // id: 3,
+      id: 3,
       text: "maçã",
-      // completed: false,
+      completed: false,
     },
 ]

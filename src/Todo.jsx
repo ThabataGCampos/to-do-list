@@ -16,69 +16,76 @@ const [newTask, setNewTask] = useState("");
 //   setTask(clone)
 // }
 
-const addNewTodo = (event) => {
-  event.preventDefault()  // previne que a página atualize e não guarde os dados
-  let new_todo = {
-    // id: "",
-    text: newTask,
-    // completed: false,
+const addNewTodo = (e) => {
+    e.preventDefault()  // previne que a página atualize e não guarde os dados
+    let newTodo = {
+      id: new Date().getTime(),
+      text: newTask,
+      completed: false,
+    }
+    //colocando a nova tarefa dentro do array
+    const adding = [...task]
+    adding.push(newTodo)
+    setTask(adding)
+    setNewTask("")  //"limpando" o imput
   }
 
-  const clone2 = [...task]
-  clone2.push(new_todo)
-  setTask(clone2)
-  setNewTask("")
-}
+  const handleSubmit = (e) => {
+    console.log(e.target.value)
+    e.preventDefault()
+    setNewTask(e.target.value)
+  }
 
-const handleSubmit = (event) => {
-  console.log(event.target.value)
-  event.preventDefault()
-  setNewTask(event.target.value)
-}
+  // // useEffect é um hook que lida com os efeitos colaterais 
+  // // ele lida com os ciclos de vida do componente
+  // // 2 argumentos: 1. função callback (efeito) 2. array de dependências
 
-// // useEffect é um hook que lida com os efeitos colaterais 
-// // ele lida com os ciclos de vida do componente
-// // 2 argumentos: 1. função callback (efeito) 2. array de dependências
-
-// useEffect(()=>{
-// //     //1. capturar o valor atual do meu contador
-//     console.log("Valor atual do contador:", task)
-// //     // 2. atualizar minha lista com os valores do contador (adicionar)
-//     const newArr = [...task]
-//     newArr.push(task)
-// //     // 3. fazer o state "list" ser igual à essa nova lista
-//     setNewTask(newArr)
-// }, [task]); 
+  // useEffect(()=>{
+  // //     //1. capturar o valor atual do meu contador
+  //     console.log("Valor atual do contador:", task)
+  // //     // 2. atualizar minha lista com os valores do contador (adicionar)
+  //     const newArr = [...task]
+  //     newArr.push(task)
+  // //     // 3. fazer o state "list" ser igual à essa nova lista
+  //     setNewTask(newArr)
+  // }, [task]); 
 
 
-console.log("task:", task);
-console.log("mock: ", GetAllTodos);
+  function deleteTask(id){
+    const delTodo = [...task].filter((tasks) => tasks.id !== id)  //boolean => "tasks" é referent a cada tarefa, se for false, não retorna o valor
+    setTask(delTodo);
+  }
 
+  function taskComplete(id){
+    // const updateTodo = [...task].map((tasks) => 
+    // )
+  }
 
-// function handleSubmit(event) {
-//     event.preventDefault()
-// }
+  console.log("task:", task);
+  console.log("mock: ", GetAllTodos);
 
-return (
-  <div>
-    <h1>Todo List </h1> 
-    <form className="form">
-        <label>Add Todo</label>
-        <input onChange={handleSubmit} type="text" value={newTask} />
-        <button onClick={addNewTodo} type="submit">Submit</button>
-    </form>
- 
-  <section>
-    {task.map((states) => {
-    return (
-      <div key={states.text}>
-        text={states.text}
-      </div>
-    );
-  })}
-</section> 
-</div>
-); 
+  return (
+    <div>
+      <h1>Todo List </h1> 
+      <form className="form" onSubmit={handleSubmit}>
+          <label>Add Todo</label>
+          <input onChange={(e) => setNewTask(e.target.value)} type="text" value={newTask} />
+          <button onClick={addNewTodo} type="submit">Submit</button>
+      </form>
+                                      
+    <section>
+      {task.map((states) => {
+      return (
+        <div key={states.id} className="todo">
+        <div>{states.text}</div>
+        <button onClick={() => deleteTask(states.id)}>Delete</button>
+        <input type="checkbox" onClick={() => taskComplete(states.id)} />
+        </div>
+      );
+    })}
+    </section> 
+    </div>
+  ); 
 
 };
 
