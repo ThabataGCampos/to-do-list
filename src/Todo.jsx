@@ -17,6 +17,7 @@ const [newTask, setNewTask] = useState("");
 // }
 
 const addNewTodo = (event) => {
+  event.preventDefault()  // previne que a página atualize e não guarde os dados
   let new_todo = {
     // id: "",
     text: newTask,
@@ -66,11 +67,11 @@ return (
         <input onChange={handleSubmit} type="text" value={newTask} />
         <button onClick={addNewTodo} type="submit">Submit</button>
     </form>
-
+ 
   <section>
     {task.map((states) => {
     return (
-      <div>
+      <div key={states.text}>
         text={states.text}
       </div>
     );
