@@ -1,17 +1,17 @@
-export const GetAllTodos = [
+export const GetAllTodo = [
     {
       id: 1,
-      text: "melancia",
+      text: "study for 3 hours",
       completed: false,
     },
     {
       id: 2,
-      text: "pera",
+      text: "buy dog food",
       completed: false,
     },
     {
       id: 3,
-      text: "maçã",
+      text: "Buy vegetables",
       completed: false,
     },
 ]

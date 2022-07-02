@@ -1,9 +1,9 @@
 import { useState } from "react";
 // import { useEffect } from "react";
-import { GetAllTodos } from "./mocks/Todomock"
+import { GetAllTodo } from "./mocks/Todomock"
 
 function Todo(){
-const [task, setTask] = useState([...GetAllTodos]);
+const [task, setTask] = useState([...GetAllTodo]);
 const [newTask, setNewTask] = useState(""); 
 
 // const handleShowTodo = (event) => {
@@ -19,7 +19,7 @@ const [newTask, setNewTask] = useState("");
 const addNewTodo = (e) => {
     e.preventDefault()  // previne que a página atualize e não guarde os dados
     let newTodo = {
-      id: new Date().getTime(),
+      id: "",
       text: newTask,
       completed: false,
     }
@@ -62,7 +62,7 @@ const addNewTodo = (e) => {
   }
 
   console.log("task:", task);
-  console.log("mock: ", GetAllTodos);
+  console.log("mock: ", GetAllTodo);
 
   return (
     <div>
