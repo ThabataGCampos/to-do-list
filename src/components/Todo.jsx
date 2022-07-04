@@ -1,10 +1,13 @@
 import { useState } from "react";
 // import { useEffect } from "react";
-import { GetAllTodo } from "./mocks/Todomock"
+import { GetAllTodo } from "../mocks/Todomock"
+import "./Todo.css"
 
 function Todo(){
 const [task, setTask] = useState([...GetAllTodo]);
 const [newTask, setNewTask] = useState(""); 
+const [todoEditing, setTodoEditing] = useState (null); //id
+const [editText, setEditText] = useState ("");
 
 // const handleShowTodo = (event) => {
 //   const clone = [...GetAllTodos]
@@ -56,9 +59,25 @@ const addNewTodo = (e) => {
     setTask(delTodo);
   }
 
-  function taskComplete(id){
-    // const updateTodo = [...task].map((tasks) => 
-    // )
+  function taskComplete(id) {
+    let updatedTodo = [...task].map((task) => {
+      if (task.id === id) {          //se a tasks selecionada for igual a id que selecionamos..
+        task.completed = !task.completed;      // mude para o oposto (false/true)
+      }
+      return task;
+    });
+    setTask(updatedTodo);
+  }
+
+  function submitEdits(id) {
+    let updatedTodo = [...task].map((task) => {
+      if (task.id === id) {     
+        task.text = editText;
+      }
+      return task;
+    });
+    setTask(updatedTodo);
+    setTodoEditing(null);
   }
 
   console.log("task:", task);
@@ -66,19 +85,27 @@ const addNewTodo = (e) => {
 
   return (
     <div>
-      <h1>Todo List </h1> 
+      <h1 className="header">Todo List </h1> 
       <form className="form" onSubmit={handleSubmit}>
           <input onChange={(e) => setNewTask(e.target.value)} type="text" value={newTask} placeholder="Add Todo"/>
           <button onClick={addNewTodo} type="submit">Submit</button>
       </form>
                                       
-    <section>
+    <section className="todo-container">
       {task.map((states) => {
       return (
+        
         <div key={states.id} className="todo">
-        <div>{states.text}</div>
+        {/* <div>{states.text}</div> */}
+        {/* <input type="text" onChange={(e) => setEditText(e.target.value)} value={editText}/> */}
+        {todoEditing === states.id ?( <input type="text" onChange={(e) => setEditText(e.target.value)} value={editText}/>) :(<div>{states.text}</div>)} 
+        <div className="todo-btn">
+        <input  className="completed" onChange={() => taskComplete(states.id)} type="checkbox" id="completed" checked={states.completed}/>
         <button onClick={() => deleteTask(states.id)}>Delete</button>
-        <input type="checkbox" onClick={() => taskComplete(states.id)} />
+        {todoEditing === states.id ?(<button onClick={() => submitEdits(states.id)}>Submit Edit</button>) :(<button onClick={() =>  setTodoEditing(states.id)}>Edit</button>)} 
+        {/* <button onClick={() => submitEdits(states.id)}>Submit Edit</button> 
+        <button onClick={() =>  setTodoEditing(states.id)}>Edit</button> */}
+        </div>
         </div>
       );
     })}
@@ -89,4 +116,3 @@ const addNewTodo = (e) => {
 };
 
 export default Todo;
-
