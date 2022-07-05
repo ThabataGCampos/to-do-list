@@ -1,72 +1,71 @@
+@media only screen and (max-width: 600px){
+    
+  .todo-container{
+    width: 25rem;
+   
+  }
+
+}
+
 body {
-    background: linear-gradient(120deg,#352f5b 0%, #985bad 100%);
-    color: white;
-    font-family: "Poppins", sans-serif;
-    min-height: 100vh;
-    text-align: center;
-  }
-  /* header {
-    font-size: 2rem;
-    text-align: center;
-  } */
+  background: linear-gradient(120deg,#352f5b 0%, #985bad 100%);
+  background-position: fixed;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  text-align: center;
+}
+header {
+  font-size: 1.5rem;
+  text-align: center;
+}
 
-form {
-    min-height: 20vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  form input,
-  form button {
-    padding: 0.5rem;
-    font-size: 2rem;
-    border: none;
-    background: white;
-  }
-  form button {
-    color: #1b0969;
-    background: #f7fffe;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  form button:hover {
-    background: #6947ff;
-    color: white;
-  }
+.allform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .todo-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* .todo-list {
-    min-width: 30%;
-    list-style: none;
-  } */
-  
-  .todo {
-    margin: 0.5rem;
-    background: white;
-    font-size: 1.5rem;
-    color: black;
-    transition: all 1s ease;
-    /* min-width: 30%; */
-    width: 45rem;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem;
-  }
+.control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  
-  .todo-btn {
-    display: flex;
-    align-items: flex-end;
-  }
-  
-  /* .completed {
-    text-decoration: line-through;
-    opacity: 0.5;
-  } */
+.btn {
+  padding: 0.5rem;
+  margin: .5rem;
+  border: none;
+  background: white;
+  color: #1b0969;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #1b0969;
+  color: white;
+} 
+
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo {
+  margin: 0.5rem;
+  margin-top: 1rem;
+  background: white;
+  font-size: 1.5rem;
+  color: #1b0969;
+  transition: all 1s ease;
+  max-width: 50%;
+  width: 45rem;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+

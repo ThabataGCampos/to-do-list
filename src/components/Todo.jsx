@@ -1,118 +1,107 @@
-import { useState } from "react";
-// import { useEffect } from "react";
-import { GetAllTodo } from "../mocks/Todomock"
-import "./Todo.css"
+import { useEffect, useState } from "react";
+import "./Todo.css";
+import FormControl from "./Forms/FormControl";
+import TaskForm from "./Forms/TaskForm";
 
-function Todo(){
-const [task, setTask] = useState([...GetAllTodo]);
-const [newTask, setNewTask] = useState(""); 
-const [todoEditing, setTodoEditing] = useState (null); //id
-const [editText, setEditText] = useState ("");
+function Todo() {
+  const [taskList, setTaskList] = useState([]);
+  const [task, setTask] = useState({
+    task_id: ""
+  })
+  const [newTask, setNewTask] = useState({
+    text: ""
+  });
 
-// const handleShowTodo = (event) => {
-//   const clone = [...GetAllTodos]
-//   const aux = clone.splice(5,5)
-//   console.log(clone)
-//   console.log(aux)
+  const baseURL= "http://localhost:8000/alltodo";
 
-//   // setListas(clone.splice(5,5))
-//   setTask(clone)
-// }
-
-const addNewTodo = (e) => {
-    e.preventDefault()  // previne que a página atualize e não guarde os dados
-    let newTodo = {
-      id: "",
-      text: newTask,
-      completed: false,
-    }
-    //colocando a nova tarefa dentro do array
-    const adding = [...task]
-    adding.push(newTodo)
-    setTask(adding)
-    setNewTask("")  //"limpando" o imput
+  async function findAllTasks() {
+    const response = await fetch(baseURL)
+    const tasks = await response.json()
+    setTaskList(tasks)
   }
 
-  const handleSubmit = (e) => {
-    console.log(e.target.value)
-    e.preventDefault()
-    setNewTask(e.target.value)
+  async function findOneTask(id){
+    const response = await fetch(`${baseURL}/${id}`)
+    const task = await response.json()
+    setTaskList([task])
+  }
+  
+
+  async function create(Task){
+    const response = await fetch(baseURL, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      mode: 'cors',
+      body: JSON.stringify(Task)
+    })
+    const newTask = await response.json()
+    setNewTask([newTask])
   }
 
-  // // useEffect é um hook que lida com os efeitos colaterais 
-  // // ele lida com os ciclos de vida do componente
-  // // 2 argumentos: 1. função callback (efeito) 2. array de dependências
+  useEffect(() => {
+    findAllTasks()
+  }, [])
 
-  // useEffect(()=>{
-  // //     //1. capturar o valor atual do meu contador
-  //     console.log("Valor atual do contador:", task)
-  // //     // 2. atualizar minha lista com os valores do contador (adicionar)
-  //     const newArr = [...task]
-  //     newArr.push(task)
-  // //     // 3. fazer o state "list" ser igual à essa nova lista
-  //     setNewTask(newArr)
-  // }, [task]); 
-
-
-  function deleteTask(id){
-    const delTodo = [...task].filter((tasks) => tasks.id !== id)  //boolean => "tasks" é referent a cada tarefa, se for false, não retorna o valor
-    setTask(delTodo);
+  const handleChange = (event) => {
+    setTask({...task, [event.target.name]: event.target.value})
   }
 
-  function taskComplete(id) {
-    let updatedTodo = [...task].map((task) => {
-      if (task.id === id) {          //se a tasks selecionada for igual a id que selecionamos..
-        task.completed = !task.completed;      // mude para o oposto (false/true)
-      }
-      return task;
-    });
-    setTask(updatedTodo);
+  const handleChangeCreate = (event) => {
+    setNewTask({...newTask, [event.target.name]: event.target.value})
   }
 
-  function submitEdits(id) {
-    let updatedTodo = [...task].map((task) => {
-      if (task.id === id) {     
-        task.text = editText;
-      }
-      return task;
-    });
-    setTask(updatedTodo);
-    setTodoEditing(null);
+  const handleClick = (event) => {
+    const task_id_search = task.task_id
+    findOneTask(task_id_search)
   }
 
-  console.log("task:", task);
-  console.log("mock: ", GetAllTodo);
+  const handleCreateTask = () => {
+    const task_being_created = {...newTask}
+    create(task_being_created)
+    setNewTask({
+      text: ""
+    })
+  }
+
+  useEffect(() => {
+    findAllTasks()
+  }, [newTask])
+
+  console.log(taskList)
 
   return (
-    <div>
-      <h1 className="header">Todo List </h1> 
-      <form className="form" onSubmit={handleSubmit}>
-          <input onChange={(e) => setNewTask(e.target.value)} type="text" value={newTask} placeholder="Add Todo"/>
-          <button onClick={addNewTodo} type="submit">Submit</button>
-      </form>
-                                      
-    <section className="todo-container">
-      {task.map((states) => {
-      return (
-        
-        <div key={states.id} className="todo">
-        {/* <div>{states.text}</div> */}
-        {/* <input type="text" onChange={(e) => setEditText(e.target.value)} value={editText}/> */}
-        {todoEditing === states.id ?( <input type="text" onChange={(e) => setEditText(e.target.value)} value={editText}/>) :(<div>{states.text}</div>)} 
-        <div className="todo-btn">
-        <input  className="completed" onChange={() => taskComplete(states.id)} type="checkbox" id="completed" checked={states.completed}/>
-        <button onClick={() => deleteTask(states.id)}>Delete</button>
-        {todoEditing === states.id ?(<button onClick={() => submitEdits(states.id)}>Submit Edit</button>) :(<button onClick={() =>  setTodoEditing(states.id)}>Edit</button>)} 
-        {/* <button onClick={() => submitEdits(states.id)}>Submit Edit</button> 
-        <button onClick={() =>  setTodoEditing(states.id)}>Edit</button> */}
+    <div className="allform">
+      <div>
+      <FormControl
+        id="searchTask"
+        label="Search by ID"
+        type="text"
+        onChange={handleChange}
+        name="task_id"
+        value={task.task_id}
+      />
+      <button type="button"
+      className={`btn`}
+      onClick={handleClick}>
+        Search
+        </button>
+        <TaskForm
+        onChange={handleChangeCreate}
+        text_value={newTask.text}
+        onClick={handleCreateTask}
+        button_label={"Add"}
+        />
         </div>
-        </div>
-      );
-    })}
-    </section> 
-    </div>
-  ); 
 
-};
+      {taskList.map((task, index) => (
+          <div key={index} className="todo-container">
+            <p className="todo">{task.text}</p>
+          </div>
+        ))}
+    </div>
+  );
+}
 
 export default Todo;
