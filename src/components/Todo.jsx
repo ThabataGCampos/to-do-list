@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Todo.css";
 import FormControl from "./Forms/FormControl";
-import TaskForm from "./Forms/TaskForm";
+// import TaskForm from "./Forms/TaskForm";  Exemplo desabilitado
 
 function Todo() {
   const [taskList, setTaskList] = useState([]);
@@ -26,7 +26,6 @@ function Todo() {
     setTaskList([task])
   }
   
-
   async function create(Task){
     const response = await fetch(baseURL, {
       method: 'post',
@@ -48,13 +47,13 @@ function Todo() {
     setTask({...task, [event.target.name]: event.target.value})
   }
 
-  const handleChangeCreate = (event) => {
-    setNewTask({...newTask, [event.target.name]: event.target.value})
-  }
-
   const handleClick = (event) => {
     const task_id_search = task.task_id
     findOneTask(task_id_search)
+  }
+
+  const handleChangeCreate = (event) => {
+    setNewTask({...newTask, [event.target.name]: event.target.value})
   }
 
   const handleCreateTask = () => {
@@ -82,18 +81,23 @@ function Todo() {
         name="task_id"
         value={task.task_id}
       />
-      <button type="button"
-      className={`btn`}
-      onClick={handleClick}>
-        Search
-        </button>
-        <TaskForm
+      <button type="button" className={`btn`} onClick={handleClick}> Search </button>
+        <FormControl 
+        id="criar_descrição"
+        label="Add a new task"
+        onChange={handleChangeCreate}
+        type="text"
+        name="text"
+        value={newTask.text} 
+        />
+        <button className="btn" onClick={handleCreateTask}>Add</button>  
+        {/* <TaskForm
         onChange={handleChangeCreate}
         text_value={newTask.text}
         onClick={handleCreateTask}
         button_label={"Add"}
-        />
-        </div>
+        /> */}
+        </div> 
 
       {taskList.map((task, index) => (
           <div key={index} className="todo-container">
