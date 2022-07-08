@@ -81,7 +81,7 @@ function Todo() {
         name="task_id"
         value={task.task_id}
       />
-      <button type="button" className={`btn`} onClick={handleClick}> Search </button>
+      <button type="button" className={`btn`} onClick={handleClick}>Search</button>
         <FormControl 
         id="criar_descrição"
         label="Add a new task"
@@ -90,7 +90,7 @@ function Todo() {
         name="text"
         value={newTask.text} 
         />
-        <button className="btn" onClick={handleCreateTask}>Add</button>  
+      <button className="btn" onClick={handleCreateTask}>Add</button>  
         {/* <TaskForm
         onChange={handleChangeCreate}
         text_value={newTask.text}
