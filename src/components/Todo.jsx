@@ -11,6 +11,11 @@ function Todo() {
   const [newTask, setNewTask] = useState({
     text: ""
   });
+  
+  const [editedTask, setEditedTask] = useState({
+    text:"",
+    id:""
+  });
 
   const baseURL= "http://localhost:8000/alltodo";
 
@@ -26,22 +31,48 @@ function Todo() {
     setTaskList([task])
   }
   
-  async function create(Task){
+  async function create(task){
     const response = await fetch(baseURL, {
-      method: 'post',
+      method: 'post',                              // linha 31 a 36 é o objeto de configuração
       headers: {
         'Content-Type': 'application/json'
       },
       mode: 'cors',
-      body: JSON.stringify(Task)
+      body: JSON.stringify(task)
     })
     const newTask = await response.json()
     setNewTask([newTask])
   }
 
-  useEffect(() => {
-    findAllTasks()
-  }, [])
+  async function updateTask(id, editedTask) {
+    const response = await fetch(`${baseURL}/${id}`, { // id para editar a task específica 
+    method: 'put',                                     // mandar o objeto de configuração para ser atualizado
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      mode: 'cors',
+      body: JSON.stringify(editedTask),
+  })
+  const response_att_task = await response.json()
+  setEditedTask({...response_att_task})
+}
+
+async function deleteTask(id){
+  const response = await fetch(`${baseURL}/${id}`, {
+      method:'delete',
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      mode: 'cors'
+  })
+  const response_task_deletada = await response.json()
+  setEditedTask({...response_task_deletada})
+  console.log(response_task_deletada)
+}
+
+  // useEffect(() => {
+  //   findAllTasks()
+  // }, [])
 
   const handleChange = (event) => {
     setTask({...task, [event.target.name]: event.target.value})
@@ -64,9 +95,33 @@ function Todo() {
     })
   }
 
+  const handleChangeEdit = (event) => {
+    setEditedTask({...editedTask, [event.target.text]: event.target.value})
+}
+
+ //on click do form
+  const handleUpdateTask = () => {
+    const task_being_edited = {...editedTask}
+    const id = task_being_edited.id
+
+    delete task_being_edited.id
+    updateTask(id, task_being_edited)
+  }
+
+  // botão editar
+  const handleClickEdit = (event) => {
+    setEditedTask({...editedTask, id: event.target.id})
+    findOneTask(event.target.id)
+  }
+
+  const handleClickDelete = (e) => {
+    deleteTask(e.target.id)
+  
+}
+
   useEffect(() => {
     findAllTasks()
-  }, [newTask])
+  }, [newTask, editedTask])
 
   console.log(taskList)
 
@@ -97,11 +152,18 @@ function Todo() {
         onClick={handleCreateTask}
         button_label={"Add"}
         /> */}
+        <FormControl 
+        onChange={handleChangeEdit}
+        type="text"
+        name="text"
+        value={editedTask.text} 
+        />
+        <button onClick={handleUpdateTask}>Edit</button>
         </div> 
 
       {taskList.map((task, index) => (
           <div key={index} className="todo-container">
-            <p className="todo">{task.text}</p>
+            <p className="todo">{task.text} <button onClick={handleClickEdit}>Edit</button> <button onClick={handleClickDelete}>Delet</button></p>
           </div>
         ))}
     </div>
