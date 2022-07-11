@@ -49,12 +49,19 @@ header {
 
 .todo-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  margin: 0.5rem;
+  margin-top: 1rem;
+  background: white;
+  font-size: 1.5rem;
+  color: #1b0969;
+  transition: all 1s ease;
   align-items: center;
+  padding: 0.5rem;
+  width: 40rem;
 }
 
-.todo {
+/* .todo {
   margin: 0.5rem;
   margin-top: 1rem;
   background: white;
@@ -67,5 +74,5 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-}
+} */
 
