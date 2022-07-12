@@ -179,10 +179,10 @@ const handleChangeCheckBox = (event) => {
           />
         <button onClick={handleUpdateTask}>Edit</button>
           <CheckBoxControl
-          id="done"
+          id={task.id}
           onChange={handleChangeCheckBox}
           name="done"
-          checked={editedTask.done}
+          checked={task.done}
           />
       </div> 
 
@@ -190,7 +190,8 @@ const handleChangeCheckBox = (event) => {
           <div key={index} className="todo-container">
             <p className="todo">{task.text}</p>
             <CheckBoxControl
-            id="done"
+            id={task.id}
+            label="to do"
             onChange={handleChangeCheckBox}
             name="done"
             checked={task.done}
