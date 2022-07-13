@@ -21,7 +21,7 @@ function Todo() {
     done: false
   });
 
-  // flag para renderizar nosso "Modal" de deletar uma Paleta
+  // flag para o modal de deletar uma Paleta
   const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   const baseURL= "http://localhost:8000/alltodo";
@@ -254,6 +254,6 @@ const closeModalDelete = () => {
     ))};
     </div>
   );
-};
+}
 
 export default Todo;
