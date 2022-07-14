@@ -10,17 +10,17 @@
 
 import { Api } from "../helpers/Api"
 
-const parseResponse = (response) => response.json() // resece a resposta e transforma em json
+const parseResponse = (response) => response.json() // recebe a resposta e transforma em json
 
 export const TaskService = {
     getList: () => fetch(Api.AllTasks(), {method: "GET"}).then(parseResponse),          // method é o objeto de configuração
     getById: (id) => fetch(Api.TaskById(id), {method: "GET"}).then(parseResponse),
-    create: (task) => fetch(Api.AllTasks(), {method: 'post',                              
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        mode: 'cors',
-        body: JSON.stringify(task), 
+    create: (task) => fetch(Api.AllTasks(), {method: 'post',                              // method, headers, mode e body é o objeto de configuração, para criar e editar é necessário ter esse tipo de objeto
+    headers: {
+    'Content-Type': 'application/json'
+    },
+    mode: 'cors',
+    body: JSON.stringify(task), 
     }).then(parseResponse),
     updateById: (id, editedTask) => fetch(Api.TaskById(id), {method: 'put',                                     // mandar o objeto de configuração para ser atualizado
     headers: {

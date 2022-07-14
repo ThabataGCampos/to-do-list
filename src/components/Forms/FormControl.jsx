@@ -6,7 +6,7 @@ function FormControl(props) {
         </label>
         <input
           type={props.type}
-          className="form-control"
+          className={props.className}
           id={props.id}
           onChange={props.onChange}
           name={props.name}
