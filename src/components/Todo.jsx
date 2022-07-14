@@ -193,7 +193,7 @@ function Todo() {
 
       {showDeleteModal ?
         <Modal closeModal={closeModalDelete}>
-          Are you sure do you want to delete this task?
+          Are you sure you want to delete this task?
           <button id={task.id} type="buttonDel" className={`btn`} onClickDel={handleClickDelete}>
             Delet
           </button>
