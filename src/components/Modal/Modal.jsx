@@ -5,7 +5,7 @@ import Overlay from "../Overlay/Overlay"
 function Modal(props){
 
   const handleModalClick = (event, canClose) => {
-    event.stopPropagation()     //stop propagatio é para que o evento não se propague nos outros (onClicks)
+    event.stopPropagation()     //stop propagation é para que o evento não se propague nos outros (onClicks)
     if(canClose) props.closeModal()   //Se canClose for true, close Modal
   }
 
