@@ -10,8 +10,8 @@ function Modal(props){
   }
 
     return (
-        <Overlay overlayclick={props.closeModal}>
-          <div className="Modal" overlayclick={handleModalClick}>
+        <Overlay overlayClick={props.closeModal}>
+          <div className="Modal" onClick={handleModalClick}>
             <span className="Modal_close" onClick={(event) => handleModalClick(event, true)}>+</span>
             <div className="Modal_body">{props.children}</div>
           </div>

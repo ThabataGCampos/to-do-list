@@ -198,13 +198,13 @@ function Todo() {
         : <button type="button" className={`btnSearch`} onClick={handleClickSearchForm}>Search by ID</button>
       }
 
-      {showDeleteModal ?
+      {showDeleteModal ? (
         <Modal closeModal={closeModalDelete}>
           Are you sure you want to delete this task?
           <button id={task.id} type="buttonDel" className={`btn`} onClick={handleClickDelete}>
             Delet
           </button>
-        </Modal>
+        </Modal> )
         : null
       }
 
