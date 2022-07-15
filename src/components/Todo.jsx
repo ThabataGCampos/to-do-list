@@ -29,6 +29,8 @@ function Todo() {
   // flag para o modal de deletar 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  const [showSearch, setShowSearch] = useState(false);
+
   const baseURL= "http://localhost:8000/alltodo";
 
   async function findAllTasks() {
@@ -96,6 +98,10 @@ function Todo() {
     findOneTask(task_id_search);
   };
 
+  const handleClickSearchForm = () => {     // para aparecer o formulário com o imput
+    setShowSearch(true)
+  }
+
   const handleChangeCreate = (event) => {
     setNewTask({...newTask, [event.target.name]: event.target.value});
   };
@@ -107,7 +113,7 @@ function Todo() {
       text: ""
     });
   };
-  
+
   const closeModalDelete = () => {
     setShowDeleteModal(false);
   };
@@ -117,8 +123,8 @@ function Todo() {
     setTask({task_id: e.target.id});
   };
 
-  const handleClickDelete = (e) => {
-    deleteTask(e.target.id);
+  const handleClickDelete = () => {
+    deleteTask(task.task_id);
     window.location.reload(true); // dá um refresh na página
   };
 
@@ -163,16 +169,6 @@ function Todo() {
 
   return (
     <div className="allform">
-      <FormControl
-        id="searchTask"
-        label="Search by ID"
-        className="FormSeachAndCreate"
-        type="text"
-        onChange={handleChangeSearch}
-        name="task_id"
-        value={task.task_id}
-      />
-      <button type="button" className={`btn`} onClick={handleClickSearch}>Search</button>
       <FormControl 
         id="criar_descrição"
         label="Add a new task"
@@ -190,11 +186,25 @@ function Todo() {
         onClick={handleCreateTask}
         button_label={"Add"}
         /> */}
+      {showSearch ?
+       <div>
+          <FormControl
+          id="searchTask"
+          label="Search by ID"
+          className="FormSeachAndCreate"
+          type="text"
+          onChange={handleChangeSearch}
+          name="task_id"
+          value={task.task_id}
+          />
+        <button type="button" className={`btn`} onClick={handleClickSearch}>Search</button> </div>
+        : <button type="button" className={`btnSearch`} onClick={handleClickSearchForm}>Search by ID</button>
+      }
 
       {showDeleteModal ?
         <Modal closeModal={closeModalDelete}>
           Are you sure you want to delete this task?
-          <button id={task.id} type="buttonDel" className={`btn`} onClickDel={handleClickDelete}>
+          <button id={task.id} type="buttonDel" className={`btn`} onClick={handleClickDelete}>
             Delet
           </button>
         </Modal>
@@ -215,16 +225,16 @@ function Todo() {
               name="text"
               value={editedTask.text} 
               />
-            : <p><CheckBoxControl
+            : <CheckBoxControl
             id={task.id}
             label={task.text}
             onChange={handleChangeCheckBox}
             name="done"
             checked={task.done}
-            /></p>} 
+            />} 
 
           {todoEditing === true && editedTask.id === task.id
-            ? (<p><button className="btn_editText" onClick={handleUpdateTask}>Edit</button></p>)   
+            ? (<button className="btn_editText" onClick={handleUpdateTask}>Edit</button>)   
           
             : (<div className="todo_edits">
               {/* icone edit */}
