@@ -5,7 +5,14 @@ const TaskContest = {
     TaskById: (id) => `${TaskContest.taskEndPoint()}/${id}` // url /id para editar, pesquisar por id ou deletar tarefas
 }
 
-export const Api = {
-    baseURL: "http://localhost:8000",
+const urls = {
+    development: "http://localhost:8000",
+    production: "https://taskapitodolist.herokuapp.com/"
+  };
+  
+  export const Api = {
+    // baseUrl: "http://localhost:8000", //development
+    // baseUrl: "https://taskapitodolist.herokuapp.com/"; //production
+    baseURL: urls[process.env.NODE_ENV],
     ...TaskContest
-}
+  };
