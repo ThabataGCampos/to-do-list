@@ -7,12 +7,13 @@ const TaskContest = {
 
 const urls = {
     development: "http://localhost:8000",
-    production: "https://taskapitodolist.herokuapp.com/"
+    production: "https://taskapitodolist.herokuapp.com"
   };
   
   export const Api = {
-    // baseUrl: "http://localhost:8000", //development
-    // baseUrl: "https://taskapitodolist.herokuapp.com/"; //production
+    // baseURL: "http://localhost:8000" //development
+    // baseURL: "https://taskapitodolist.herokuapp.com/" //production
     baseURL: urls[process.env.NODE_ENV],
     ...TaskContest
   };
+  
