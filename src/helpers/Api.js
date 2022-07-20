@@ -13,7 +13,7 @@ const TaskContest = {
   export const Api = {
     // baseURL: "http://localhost:8000", //development
     baseURL: "https://taskapitodolist.herokuapp.com", //production
-    // baseURL: urls[process.env.NODE_ENV],
+    // baseURL: urls[process.env.NODE_ENV],    //para deixar habilitado rodar as duas portas de uma vez (comentar a linha 14 e 15)
     ...TaskContest
   };
   

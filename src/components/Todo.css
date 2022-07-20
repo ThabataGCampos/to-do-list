@@ -15,6 +15,10 @@
     font-size: 1.2rem !important;
   }
 
+  .FormEditTask{
+    width: 80% !important;
+  }
+
 }
 
 body {
@@ -146,11 +150,11 @@ input[type=checkbox] + label:before {
   margin-right: 0.2em;
   vertical-align: bottom;
   color: transparent;
-  transition: .2s;
+  transition: .1s;
 }
 
 input[type=checkbox] + label:active:before {
-  transform: scale(0);
+  transform: scale(0.2);
 }
 
 input[type=checkbox]:checked + label:before {
@@ -166,8 +170,8 @@ input[type=checkbox]:disabled + label:before {
 
 input[type=checkbox]:checked:disabled + label:before {
   transform: scale(1);
-  background-color: #bfb;
-  border-color: #bfb;
+  background-color: #bfb6fa;
+  border-color: #bfb6fa;
 }
 
 .FormSeachAndCreate{
@@ -187,6 +191,10 @@ input[type=checkbox]:checked:disabled + label:before {
 
 .iconEd:hover{
   color: green;
+}
+
+.iconTr{
+  color: #1b0969;
 }
 
 .iconTr:hover{
