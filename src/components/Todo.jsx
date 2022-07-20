@@ -104,6 +104,7 @@ function Todo() {
   }
   const handleClickReturn = () => {      
     findAllTasks(); // para aparecer todas as tasks
+    setShowSearch(false)
   };
 
   const handleChangeCreate = (event) => {
