@@ -203,7 +203,7 @@ function Todo() {
         <Modal closeModal={closeModalDelete}>
           Are you sure you want to delete this task?
           <button id={task.id} type="buttonDel" className={`btn`} onClick={handleClickDelete}>
-            Delet
+            Delete
           </button>
         </Modal> )
         : null
